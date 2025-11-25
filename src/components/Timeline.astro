@@ -1,0 +1,493 @@
+---
+import TimelineCard from './TimelineCard.astro';
+
+// Timeline data
+const philosophers = [
+  // Cinismo
+  {
+    name: 'Antístenes',
+    dates: '444-365 a.C.',
+    school: 'Cinismo',
+    concepts: ['Virtud autosuficiente', 'Esfuerzo (ponos)', 'Autarquía'],
+    peaceUtility: 'Su énfasis en la autosuficiencia y la virtud por encima de las posesiones materiales puede mitigar la ambición desmedida y el nacionalismo exacerbado, causas frecuentes de conflictos armados.',
+    imagePlaceholder: '/images/philosophers/antistenes.png'
+  },
+  {
+    name: 'Diógenes de Sinope',
+    dates: '412-323 a.C.',
+    school: 'Cinismo',
+    concepts: ['Cosmopolitismo', 'Parresía (libertad de expresión)', 'Vida según la naturaleza'],
+    peaceUtility: 'Su cosmopolitismo radical desafía las narrativas nacionalistas y xenófobas que alimentan conflictos. La parresía permite el diálogo crítico necesario para la reconciliación.',
+    imagePlaceholder: '/images/philosophers/diogenes-de-sinope.png'
+  },
+  
+  // Epicureísmo
+  {
+    name: 'Epicuro',
+    dates: '341-271 a.C. (Fundó el Jardín en 306 a.C.)',
+    school: 'Epicureísmo',
+    concepts: ['Ataraxia', 'Justicia como pacto', 'Vivir ocultamente', 'Tetrafármaco'],
+    peaceUtility: 'Su concepción de la justicia como pacto basado en el interés mutuo ofrece un marco pragmático para acuerdos de paz. La búsqueda de la ataraxia puede reducir las pasiones violentas.',
+    imagePlaceholder: '/images/philosophers/epicuro.png'
+  },
+  {
+    name: 'Hermarco de Mitilene',
+    dates: 'Director desde 271 a.C.',
+    school: 'Epicureísmo',
+    concepts: ['Continuador de Epicuro', 'Amistad filosófica'],
+    peaceUtility: 'Preservó y difundió las enseñanzas epicúreas sobre la amistad y la búsqueda de la tranquilidad, esenciales para comunidades post-conflicto.',
+    imagePlaceholder: '/images/philosophers/hermaco-de-mitilene.png'
+  },
+  {
+    name: 'Polístrato',
+    dates: 'Director ≈250 a.C.',
+    school: 'Epicureísmo',
+    concepts: ['Crítica al cinismo extremo', 'Moderación'],
+    peaceUtility: 'Su defensa de la moderación frente al rigorismo extremo puede facilitar compromisos necesarios en procesos de paz.',
+    imagePlaceholder: '/images/philosophers/polistrato.png'
+  },
+  
+  // Estoicismo
+  {
+    name: 'Zenón de Citio',
+    dates: '333-261 a.C. (Fundó la Estoa en 300 a.C.)',
+    school: 'Estoicismo',
+    concepts: ['Vivir conforme a la naturaleza', 'Virtud como único bien', 'Deber (kathêkon)', 'Cosmopolitismo'],
+    peaceUtility: 'Su marco ético universal y el concepto de deber natural proporcionan fundamentos sólidos para la gobernanza justa y la responsabilidad moral en contextos de conflicto.',
+    imagePlaceholder: '/images/philosophers/zenon-de-citio.png'
+  },
+  {
+    name: 'Cleantes de Aso',
+    dates: '330-230 a.C.',
+    school: 'Estoicismo',
+    concepts: ['Fuerza del alma', 'Valentía', 'Himno a Zeus', 'Tensión cósmica'],
+    peaceUtility: 'Su énfasis en la fortaleza interior puede inspirar la resiliencia necesaria en víctimas de conflictos armados.',
+    imagePlaceholder: '/images/philosophers/cleantes-de-aso.png'
+  },
+  {
+    name: 'Crisipo de Solos',
+    dates: '280-205 a.C.',
+    school: 'Estoicismo',
+    concepts: ['Ley natural', 'Destino (fatum)', 'Razón del mundo', 'Lógica proposicional'],
+    peaceUtility: 'Su desarrollo de la ley natural como fundamento de la justicia ofrece un criterio objetivo para evaluar y condenar injusticias sistemáticas.',
+    imagePlaceholder: '/images/philosophers/crisipo-de-solos.png'
+  },
+  {
+    name: 'Panecio de Rodas',
+    dates: '185 a.C.',
+    school: 'Estoicismo',
+    concepts: ['Eclecticismo', 'Virtudes como arquero', 'Deberes apropiados'],
+    peaceUtility: 'Su enfoque conciliador entre diferentes corrientes filosóficas modelo el diálogo intercultural necesario para la paz sostenible.',
+    imagePlaceholder: '/images/philosophers/panecio-de-rodas.png'
+  },
+  {
+    name: 'Posidonio',
+    dates: '135 a.C.',
+    school: 'Estoicismo',
+    concepts: ['División tripartita de la filosofía', 'Artes liberales', 'Unidad cósmica'],
+    peaceUtility: 'Su énfasis en la educación integral y las artes liberales puede fundamentar programas de educación moral en contextos post-conflicto.',
+    imagePlaceholder: '/images/philosophers/posidonio.png'
+  },
+  {
+    name: 'Séneca',
+    dates: '4 a.C. - 65 d.C.',
+    school: 'Estoicismo',
+    concepts: ['Amor a la sabiduría', 'Valentía ante el destino', 'Clemencia', 'Brevedad de la vida'],
+    peaceUtility: 'Sus reflexiones sobre la clemencia y el perdón son particularmente relevantes para procesos de justicia transicional y reconciliación.',
+    imagePlaceholder: '/images/philosophers/seneca.png'
+  },
+  {
+    name: 'Epicteto',
+    dates: '50-135 d.C.',
+    school: 'Estoicismo',
+    concepts: ['Uso correcto de representaciones', 'Distinción de lo que depende de nosotros', 'Libertad interior'],
+    peaceUtility: 'Su distinción entre lo que está en nuestro control y lo que no puede ayudar a víctimas de conflictos a recuperar su agencia y paz interior.',
+    imagePlaceholder: '/images/philosophers/epicteto.png'
+  },
+  {
+    name: 'Marco Aurelio',
+    dates: '121-180 d.C.',
+    school: 'Estoicismo',
+    concepts: ['Comunidad universal', 'Disciplina del juicio', 'Meditaciones', 'Servicio al bien común'],
+    peaceUtility: 'Sus reflexiones sobre el liderazgo racional y el servicio comunitario ofrecen un modelo para gobernantes en contextos de reconstrucción post-conflicto.',
+    imagePlaceholder: '/images/philosophers/marco-aurelio.png'
+  },
+  
+  // Escepticismo
+  {
+    name: 'Pirrón de Élide',
+    dates: '360-270 a.C.',
+    school: 'Escepticismo',
+    concepts: ['Acatalepsía', 'Epoché (suspensión del juicio)', 'Ataraxia'],
+    peaceUtility: 'La suspensión del juicio dogmático puede desactivar certezas absolutas que alimentan fanatismos y conflictos ideológicos.',
+    imagePlaceholder: '/images/philosophers/pirron-de-elide.png'
+  },
+  {
+    name: 'Arcesilao',
+    dates: 'Director de la Academia ≈265 a.C.',
+    school: 'Escepticismo',
+    concepts: ['Lo razonable (tò eúlogon)', 'Suspensión del juicio', 'Crítica al dogmatismo'],
+    peaceUtility: 'Su enfoque pragmático permite la acción sin dogmatismo, útil para navegar las complejidades de negociaciones de paz.',
+    imagePlaceholder: '/images/philosophers/arcesilao.png'
+  },
+  {
+    name: 'Carnéades de Cirene',
+    dates: '214 a.C. (Director en 165 a.C.)',
+    school: 'Escepticismo',
+    concepts: ['Representación creíble', 'Probabilismo', 'Crítica de la teología'],
+    peaceUtility: 'Su probabilismo ofrece una base para consensos pragmáticos sin exigir acuerdos absolutos en verdades últimas.',
+    imagePlaceholder: '/images/philosophers/carneades-de-cirene.png'
+  },
+  {
+    name: 'Enesidemo',
+    dates: 'Murió en 10 a.C.',
+    school: 'Escepticismo',
+    concepts: ['Diez tropos', 'Relatividad', 'Equipolencia de argumentos'],
+    peaceUtility: 'Su análisis de la relatividad y la diversidad de perspectivas fomenta la tolerancia y el reconocimiento de múltiples puntos de vista legítimos.',
+    imagePlaceholder: '/images/philosophers/enesidemo.png'
+  },
+  
+  // Eclecticismo
+  {
+    name: 'Cicerón',
+    dates: 'Murió en 43 a.C.',
+    school: 'Eclecticismo',
+    concepts: ['Disertar frente a todo', 'Lo más probable', 'Sabiduría práctica', 'Humanitas'],
+    peaceUtility: 'Su habilidad para sintetizar diferentes tradiciones filosóficas y su experiencia política lo convierten en un modelo para la mediación y la reconstrucción institucional.',
+    imagePlaceholder: '/images/philosophers/ciceron.png'
+  },
+  {
+    name: 'Antíoco de Ascalón',
+    dates: 'Activo en 79 a.C.',
+    school: 'Eclecticismo',
+    concepts: ['Armonización de escuelas', 'Retorno al platonismo antiguo'],
+    peaceUtility: 'Su proyecto de unificación filosófica puede inspirar esfuerzos de reconciliación entre facciones enfrentadas.',
+    imagePlaceholder: '/images/philosophers/antioco-de-ascalon.png'
+  },
+  
+  // Neoplatonismo
+  {
+    name: 'Plotino',
+    dates: '204-270 d.C. (Fundó escuela en 244 d.C.)',
+    school: 'Neoplatonismo',
+    concepts: ['Uno-Inteligencia-Alma', 'Epistrophé (retorno)', 'Purificación', 'Contemplación'],
+    peaceUtility: 'Su énfasis en la purificación interior y el retorno a la unidad puede fundamentar procesos de sanación espiritual post-conflicto.',
+    imagePlaceholder: '/images/philosophers/plotino.png'
+  },
+  {
+    name: 'Porfirio',
+    dates: '234-305 d.C.',
+    school: 'Neoplatonismo',
+    concepts: ['Editor de Plotino', 'Vegetarianismo ético', 'Isagogé'],
+    peaceUtility: 'Su defensa del respeto a toda vida sensible puede extender la ética de paz más allá de lo humano.',
+    imagePlaceholder: '/images/philosophers/porfirio.png'
+  },
+  {
+    name: 'Jámblico',
+    dates: '250-325 d.C.',
+    school: 'Neoplatonismo',
+    concepts: ['Teúrgia', 'Jerarquías divinas', 'Ritual y filosofía'],
+    peaceUtility: 'Su integración de práctica ritual con filosofía reconoce la importancia de dimensiones no racionales en procesos de reconciliación.',
+    imagePlaceholder: '/images/philosophers/jamblico.png'
+  },
+  {
+    name: 'Proclo',
+    dates: '412-485 d.C.',
+    school: 'Neoplatonismo',
+    concepts: ['Toda multiplicidad deriva de la unidad', 'Sistema filosófico completo', 'Comentarista'],
+    peaceUtility: 'Su visión sistemática de la realidad como derivada de la unidad puede inspirar visiones integradoras que trasciendan divisiones aparentes.',
+    imagePlaceholder: '/images/philosophers/proclo.png'
+  }
+];
+---
+
+<section class="timeline-section">
+  <div class="timeline-header">
+    <h2>Línea de Tiempo del Helenismo</h2>
+    <p>Explora la evolución cronológica del pensamiento helenístico. Pasa el cursor sobre cada imagen para descubrir los conceptos clave y la relevancia de cada filósofo para la construcción de paz</p>
+  </div>
+  
+  <!-- Filtros por escuela -->
+  <div class="school-filters">
+    <button class="filter-btn active" data-school="all">Todas</button>
+    <button class="filter-btn" data-school="Cinismo" style="--filter-color: var(--color-cynicism)">Cinismo</button>
+    <button class="filter-btn" data-school="Epicureísmo" style="--filter-color: var(--color-epicureanism)">Epicureísmo</button>
+    <button class="filter-btn" data-school="Estoicismo" style="--filter-color: var(--color-stoicism)">Estoicismo</button>
+    <button class="filter-btn" data-school="Escepticismo" style="--filter-color: var(--color-skepticism)">Escepticismo</button>
+    <button class="filter-btn" data-school="Eclecticismo" style="--filter-color: var(--color-eclecticism)">Eclecticismo</button>
+    <button class="filter-btn" data-school="Neoplatonismo" style="--filter-color: var(--color-neoplatonism)">Neoplatonismo</button>
+  </div>
+  
+  <div class="timeline-controls">
+    <button id="prev-btn" class="control-btn" aria-label="Anterior">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+    </button>
+    
+    <div class="timeline-container">
+      <div class="timeline-track" id="timeline-track">
+        {philosophers.map((philosopher, index) => (
+          <TimelineCard {...philosopher} index={index} />
+        ))}
+      </div>
+    </div>
+    
+    <button id="next-btn" class="control-btn" aria-label="Siguiente">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 18l6-6-6-6"/>
+      </svg>
+    </button>
+  </div>
+  
+  <div class="timeline-indicator">
+    <div class="progress-bar">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+    <p class="position-text" id="position-text">1 / {philosophers.length}</p>
+  </div>
+</section>
+
+<script>
+  const track = document.getElementById('timeline-track');
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  const progressFill = document.getElementById('progress-fill');
+  const positionText = document.getElementById('position-text');
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  
+  if (track && prevBtn && nextBtn && progressFill && positionText) {
+    let currentIndex = 0;
+    const cards = Array.from(track.querySelectorAll('.timeline-card'));
+    const totalCards = cards.length;
+    
+    // Obtener la escuela de cada tarjeta
+    const cardSchools = Array.from(cards).map(card => {
+      const badge = card.querySelector('.school-badge');
+      return badge ? badge.textContent.trim() : '';
+    });
+    
+    function updateTimeline() {
+      const cardWidth = cards[0].clientWidth;
+      const gap = 24; // spacing between cards
+      const offset = currentIndex * (cardWidth + gap);
+      
+      track.style.transform = `translateX(-${offset}px)`;
+      
+      // Update progress
+      const progress = ((currentIndex + 1) / totalCards) * 100;
+      progressFill.style.width = `${progress}%`;
+      positionText.textContent = `${currentIndex + 1} / ${totalCards}`;
+      
+      // Update button states
+      prevBtn.disabled = currentIndex === 0;
+      nextBtn.disabled = currentIndex === totalCards - 1;
+    }
+    
+    prevBtn.addEventListener('click', () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+        updateTimeline();
+      }
+    });
+    
+    nextBtn.addEventListener('click', () => {
+      if (currentIndex < totalCards - 1) {
+        currentIndex++;
+        updateTimeline();
+      }
+    });
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') prevBtn.click();
+      if (e.key === 'ArrowRight') nextBtn.click();
+    });
+    
+    // Initial state
+    updateTimeline();
+    
+    // Responsive handling
+    window.addEventListener('resize', updateTimeline);
+    
+    // Filtros por escuela - navegar al primer filósofo de la escuela
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const school = btn.dataset.school;
+        
+        // Actualizar estado activo de botones
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        // Navegar al primer filósofo de la escuela seleccionada
+        if (school === 'all') {
+          currentIndex = 0;
+        } else {
+          const firstIndex = cardSchools.findIndex(s => s === school);
+          if (firstIndex >= 0) {
+            currentIndex = firstIndex;
+          }
+        }
+        
+        updateTimeline();
+      });
+    });
+  }
+</script>
+
+<style>
+  .timeline-section {
+    padding: var(--spacing-3xl) 0;
+    background: linear-gradient(to bottom, var(--color-bg), var(--color-surface));
+  }
+  
+  .timeline-header {
+    text-align: center;
+    margin: 0 auto var(--spacing-xl);
+    max-width: 900px;
+    padding: 0 var(--spacing-lg);
+  }
+  
+  .timeline-header h2 {
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .timeline-header p {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  
+  /* Filtros por escuela */
+  .school-filters {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin: var(--spacing-xl) auto;
+    max-width: 900px;
+    padding: 0 var(--spacing-lg);
+  }
+  
+  .filter-btn {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border: 2px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text);
+    border-radius: var(--radius-lg);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .filter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .filter-btn.active {
+    background: var(--filter-color, var(--color-accent));
+    border-color: var(--filter-color, var(--color-accent));
+    color: white;
+    box-shadow: var(--shadow-md);
+  }
+  
+  .filter-btn[data-school="all"].active {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+  
+  .timeline-controls {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
+  }
+  
+  .timeline-container {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .timeline-track {
+    display: flex;
+    gap: 24px;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: var(--spacing-md) 0;
+  }
+  
+  .control-btn {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .control-btn:hover:not(:disabled) {
+    background: var(--color-accent);
+    color: white;
+    border-color: var(--color-accent);
+    transform: scale(1.1);
+  }
+  
+  .control-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+  
+  .timeline-indicator {
+    max-width: 600px;
+    margin: var(--spacing-xl) auto 0;
+    padding: 0 var(--spacing-lg);
+  }
+  
+  .progress-bar {
+    width: 100%;
+    height: 6px;
+    background: var(--color-border);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .progress-fill {
+    height: 100%;
+    background: var(--color-accent);
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 3px;
+  }
+  
+  .position-text {
+    text-align: center;
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+    font-weight: 600;
+  }
+  
+  @media (max-width: 768px) {
+    .timeline-header h2 {
+      font-size: 2rem;
+    }
+    
+    .control-btn {
+      width: 40px;
+      height: 40px;
+    }
+  }
+</style>

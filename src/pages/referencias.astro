@@ -1,0 +1,128 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Referencias Bibliográficas">
+  <div class="references-page">
+    <div class="references-container">
+      <h1>Referencias Bibliográficas</h1>
+      
+      <ul class="ref-list">
+        <li class="ref-item" data-url="https://archive.org/details/metafisica_202008/page/162/mode/1up?view=theater">
+          Aristóteles (1994). <em>Diálogos IV</em>. Introducción, traducción y notas de Tomás Calvo Martínez. Madrid, España: Gredos S.A.
+        </li>
+        <li class="ref-item" data-url="https://rephip.unr.edu.ar/server/api/core/bitstreams/2502d790-1c9b-445f-9ff4-59a1861c7702/content">
+          Barrón Tovar, J. F., & Ocampo Gutiérrez de Velasco, M. E. (2018). Sobre los usos de las visualizaciones digitales en la investigación filosófica. Presentaciones del "III Congreso Internacional de la Asociación de Humanidades Digitales (AAHD). La cultura de los datos".
+        </li>
+        <li class="ref-item" data-url="https://www.eusal.es/index.php/eusal/catalog/view/978-84-1311-306-7/5440/6076-1">
+          García, I & García, P. (2020). <em>Materiales didácticos de filosofía helenística</em>. Ediciones Universidad de Salamanca. (pp. 43-63)
+        </li>
+        <li class="ref-item" data-url="https://archive.org/details/2009FilosofiaHelenisticaSeleccionDeTextos/page/8/mode/2up">
+          Mas Torres, S. (2009). <em>Filosofía Helenística: selección de textos</em>. (pp. 9-25)
+        </li>
+        <li class="ref-item" data-url="https://claude.ai/public/artifacts/73bfea2b-991f-46e1-b117-dd91120081c0">
+          Claude. (2025, 24 de noviembre). Historia de los conflictos armados: del helenismo a la actualidad [Informe de investigación generado por IA]. Anthropic.
+        </li>
+        <li class="ref-item" data-url="https://claude.ai/public/artifacts/d63b1915-6979-441b-a41d-e4904a5356e9">
+          Claude. (2025, 24 de noviembre). Conflictos armados en Colombia: desde la independencia hasta 2025 [Informe de investigación generado por IA]. Anthropic.
+        </li>
+      </ul>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const refItems = document.querySelectorAll('.ref-item');
+    
+    refItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const url = item.dataset.url;
+        if (url) {
+          window.open(url, '_blank', 'noopener,noreferrer');
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .references-page {
+    min-height: 100vh;
+    padding: var(--spacing-3xl) 0;
+    background: var(--color-bg);
+  }
+  
+  .references-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
+  }
+  
+  .references-page h1 {
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-3xl);
+    text-align: center;
+    color: var(--color-text);
+  }
+  
+  
+  .ref-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .ref-list li {
+    margin-bottom: var(--spacing-xl);
+    padding: var(--spacing-lg);
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    line-height: 1.8;
+    color: var(--color-text-secondary);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .ref-list li::after {
+    content: "↗";
+    position: absolute;
+    top: var(--spacing-lg);
+    right: var(--spacing-lg);
+    font-size: 1.5rem;
+    color: var(--color-accent);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  
+  .ref-list li:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .ref-list li:hover::after {
+    opacity: 1;
+  }
+  
+  .ref-list a {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+  
+  .ref-list a:hover {
+    color: var(--color-accent-hover);
+  }
+  
+  @media (max-width: 768px) {
+    .references-page h1 {
+      font-size: 2rem;
+    }
+    
+    .ref-list li {
+      padding: var(--spacing-md);
+      margin-bottom: var(--spacing-lg);
+    }
+  }
+</style>

@@ -1,16 +1,336 @@
 ---
-
+import Layout from '../layouts/Layout.astro';
+const base = import.meta.env.BASE_URL;
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="Helenismo & Paz - Inicio">
+  <div class="hero">
+    <div class="container">
+      <div class="hero-content fade-in">
+        <h1 class="hero-title">
+          Filosofía Helenística
+          <span class="hero-subtitle">y la Construcción de Paz</span>
+        </h1>
+        <p class="hero-description">
+          Explorando cómo el pensamiento helenístico puede ofrecer herramientas conceptuales 
+          para abordar los conflictos armados internos y promover la reconciliación.
+        </p>
+        <div class="hero-actions">
+          <a href={`${base}blog`} class="btn btn-primary">
+            Leer el Blog
+          </a>
+          <a href={`${base}timeline`} class="btn btn-secondary">
+            Explorar Línea de Tiempo
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <section class="intro-section">
+    <div class="container">
+      <h2>¿Por qué Filosofía Helenística?</h2>
+      <div class="intro-grid">
+        <div class="intro-card">
+          <div class="intro-icon">🏛️</div>
+          <h3>Contexto Histórico</h3>
+          <p>
+            El helenismo surgió tras la fragmentación del imperio de Alejandro Magno, 
+            un período de crisis política similar a los conflictos armados contemporáneos.
+          </p>
+        </div>
+        
+        <div class="intro-card">
+          <div class="intro-icon">🤝</div>
+          <h3>Relevancia Práctica</h3>
+          <p>
+            Las escuelas helenísticas desarrollaron filosofías prácticas centradas en 
+            cómo vivir bien en tiempos de incertidumbre y conflicto.
+          </p>
+        </div>
+        
+        <div class="intro-card">
+          <div class="intro-icon">☮️</div>
+          <h3>Herramientas para la Paz</h3>
+          <p>
+            Conceptos como cosmopolitismo, ataraxia y virtud ofrecen marcos éticos 
+            para la reconciliación y la convivencia pacífica.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="schools-section">
+    <div class="container">
+      <h2>Escuelas Filosóficas</h2>
+      <div class="schools-grid">
+        <div class="school-card" style="--school-color: var(--color-cynicism)">
+          <h3>Cinismo</h3>
+          <p>Autosuficiencia y cosmopolitismo radical</p>
+        </div>
+        
+        <div class="school-card" style="--school-color: var(--color-epicureanism)">
+          <h3>Epicureísmo</h3>
+          <p>Búsqueda de la ataraxia y justicia como pacto</p>
+        </div>
+        
+        <div class="school-card" style="--school-color: var(--color-stoicism)">
+          <h3>Estoicismo</h3>
+          <p>Virtud, deber y vivir conforme a la naturaleza</p>
+        </div>
+        
+        <div class="school-card" style="--school-color: var(--color-skepticism)">
+          <h3>Escepticismo</h3>
+          <p>Suspensión del juicio y tolerancia</p>
+        </div>
+        
+        <div class="school-card" style="--school-color: var(--color-eclecticism)">
+          <h3>Eclecticismo</h3>
+          <p>Síntesis y armonización de diferentes escuelas</p>
+        </div>
+        
+        <div class="school-card" style="--school-color: var(--color-neoplatonism)">
+          <h3>Neoplatonismo</h3>
+          <p>Purificación interior y retorno a la unidad</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="cta-section">
+    <div class="container-narrow">
+      <a href={`${base}timeline`} class="btn btn-large">
+        Ver Línea de Tiempo Interactiva
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .hero {
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, 
+      rgba(79, 70, 229, 0.05) 0%, 
+      rgba(99, 102, 241, 0.05) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 50%, rgba(79, 70, 229, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  
+  .hero-content {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .hero-title {
+    font-size: 4rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: var(--spacing-md);
+    background: linear-gradient(135deg, var(--color-text) 0%, var(--color-accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .hero-subtitle {
+    display: block;
+    font-size: 0.6em;
+    margin-top: var(--spacing-sm);
+    color: var(--color-text-secondary);
+  }
+  
+  .hero-description {
+    font-size: 1.25rem;
+    max-width: 700px;
+    margin: 0 auto var(--spacing-xl);
+    line-height: 1.7;
+  }
+  
+  .hero-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .btn-primary {
+    background: var(--color-accent);
+    color: white;
+    padding: var(--spacing-md) var(--spacing-xl);
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    font-size: 1.125rem;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-md);
+  }
+  
+  .btn-primary:hover {
+    background: var(--color-accent-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .btn-secondary {
+    background: var(--color-surface);
+    color: var(--color-text);
+    padding: var(--spacing-md) var(--spacing-xl);
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    font-size: 1.125rem;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-md);
+    border: 2px solid var(--color-border);
+  }
+  
+  .btn-secondary:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .intro-section,
+  .schools-section {
+    padding: var(--spacing-3xl) 0;
+  }
+  
+  .intro-section h2,
+  .schools-section h2 {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+  }
+  
+  .intro-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-xl);
+  }
+  
+  .intro-card {
+    text-align: center;
+    padding: var(--spacing-xl);
+  }
+  
+  .intro-icon {
+    font-size: 4rem;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .intro-card h3 {
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .schools-section {
+    background: var(--color-surface);
+  }
+  
+  .schools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-lg);
+  }
+  
+  .school-card {
+    background: var(--color-bg);
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-lg);
+    border-left: 4px solid var(--school-color);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .school-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .school-card h3 {
+    color: var(--school-color);
+    margin-bottom: var(--spacing-sm);
+    font-size: 1.5rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+  
+  .school-card p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+  
+  .cta-section {
+    padding: var(--spacing-3xl) 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(135deg, 
+      var(--color-accent) 0%, 
+      var(--color-accent-hover) 100%);
+    color: white;
+  }
+  
+  .cta-section h2 {
+    color: white;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .cta-section p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.125rem;
+    margin-bottom: var(--spacing-xl);
+  }
+  
+  .btn-large {
+    background: white;
+    color: var(--color-accent);
+    padding: var(--spacing-md) var(--spacing-2xl);
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    font-size: 1.125rem;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-lg);
+    display: inline-block;
+  }
+  
+  .btn-large:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-xl);
+  }
+  
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 2.5rem;
+    }
+    
+    .hero-description {
+      font-size: 1.125rem;
+    }
+    
+    .hero-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    
+    .intro-grid,
+    .schools-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
