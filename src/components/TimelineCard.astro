@@ -10,6 +10,7 @@ interface Props {
 }
 
 const { name, dates, school, concepts, peaceUtility, imagePlaceholder, index } = Astro.props;
+const base = import.meta.env.BASE_URL;
 
 // Map schools to colors
 const schoolColors: Record<string, string> = {
@@ -22,13 +23,14 @@ const schoolColors: Record<string, string> = {
 };
 
 const schoolColor = schoolColors[school] || 'var(--color-accent)';
+const imageSrc = imagePlaceholder ? `${base}${imagePlaceholder}` : `${base}/images/philosophers/placeholder.png`;
 ---
 
 <div class="timeline-card" data-index={index} style={`--school-color: ${schoolColor}`}>
   <div class="card-inner">
     <!-- Frente: Imagen del filósofo -->
     <div class="card-front">
-      <img src={imagePlaceholder || '/images/philosophers/placeholder.png'} alt={`${name} - ${school}`} />
+      <img src={imageSrc} alt={`${name} - ${school}`} />
       <div class="school-badge" style={`background: ${schoolColor}`}>
         {school}
       </div>

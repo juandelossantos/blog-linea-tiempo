@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+const base = import.meta.env.BASE_URL;
 ---
 
 <Layout title="Blog - Filosofía Helenística y Construcción de Paz">
@@ -15,7 +16,7 @@ import Layout from '../layouts/Layout.astro';
             <div class="author-card-inner">
               <!-- Frente: Imagen del autor -->
               <div class="author-card-front">
-                <img src="/images/author/david-sierra.png" alt="David Emilio Sierra Puentes" />
+                <img src={`${base}/images/author/david-sierra.png`} alt="David Emilio Sierra Puentes" />
                 <div class="author-badge">Autor</div>
               </div>
               
